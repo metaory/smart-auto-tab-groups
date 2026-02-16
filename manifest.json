@@ -1,0 +1,29 @@
+{
+	"manifest_version": 3,
+	"name": "Smart Auto Tab Group",
+	"version": "1.0.0",
+	"description": "Auto-group tabs by domain or subdomain",
+	"permissions": ["tabs", "tabGroups", "storage", "management"],
+	"action": { "default_popup": "popup.html" },
+	"background": { "service_worker": "sw.js" },
+	"commands": {
+		"group-now": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+G",
+				"mac": "Command+Shift+G",
+				"linux": "Ctrl+Shift+G",
+				"windows": "Ctrl+Shift+G"
+			},
+			"description": "Group now"
+		},
+		"ungroup-all": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+U",
+				"mac": "Command+Shift+U",
+				"linux": "Ctrl+Shift+U",
+				"windows": "Ctrl+Shift+U"
+			},
+			"description": "Ungroup all"
+		}
+	}
+}

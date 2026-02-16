@@ -1,0 +1,20 @@
+.popup {
+	padding: 12px;
+	min-width: 220px;
+}
+.popup label {
+	display: block;
+	margin-bottom: 8px;
+	cursor: pointer;
+}
+#groupNow,
+#ungroupAll {
+	margin-top: 8px;
+	width: 100%;
+}
+#shortcutsLink {
+	display: block;
+	margin-top: 8px;
+	font-size: 0.85em;
+	opacity: 0.8;
+}
