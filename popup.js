@@ -1,9 +1,9 @@
 const OPTIONS = [
-	{ id: 'groupBySubdomain', label: 'Group by subdomain' },
-	{ id: 'sortAlphabetically', label: 'Sort groups alphabetically' },
-	{ id: 'ignorePinnedTabs', label: 'Ignore pinned tabs' },
-	{ id: 'collapseInactive', label: 'Collapse inactive groups' },
-	{ id: 'avoidDuplicates', label: 'Avoid duplicates' },
+	{ id: 'groupBySubdomain', short: 'Subdomain' },
+	{ id: 'sortAlphabetically', short: 'Sort A–Z' },
+	{ id: 'ignorePinnedTabs', short: 'Skip pinned' },
+	{ id: 'collapseInactive', short: 'Collapse inactive' },
+	{ id: 'avoidDuplicates', short: 'No duplicates' },
 ];
 
 const BUTTONS = [
@@ -12,10 +12,20 @@ const BUTTONS = [
 ];
 
 const container = document.getElementById('options');
-OPTIONS.forEach(({ id, label }) => {
-	const labelEl = document.createElement('label');
-	labelEl.innerHTML = `<input type="checkbox" id="${id}"> ${label}`;
-	container.appendChild(labelEl);
+OPTIONS.forEach(({ id, short: shortLabel }) => {
+	const row = document.createElement('div');
+	row.className = 'option';
+	const lab = document.createElement('label');
+	const switchWrap = document.createElement('span');
+	switchWrap.className = 'switch';
+	switchWrap.append(
+		Object.assign(document.createElement('input'), { type: 'checkbox', id, className: 'toggle' }),
+		document.createElement('span'),
+	);
+	switchWrap.lastElementChild.className = 'slider';
+	lab.append(switchWrap, Object.assign(document.createElement('span'), { className: 'short', textContent: shortLabel }));
+	row.append(lab);
+	container.appendChild(row);
 });
 
 chrome.storage.sync.get(

@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"description": "Auto-group tabs by domain or subdomain",
 	"permissions": ["tabs", "tabGroups", "storage", "management"],
-	"action": { "default_popup": "popup.html" },
+	"action": { "default_popup": "index.html" },
 	"background": { "service_worker": "sw.js" },
 	"commands": {
 		"group-now": {
