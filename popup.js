@@ -6,6 +6,11 @@ const OPTIONS = [
 	{ id: 'avoidDuplicates', label: 'Avoid duplicates' },
 ];
 
+const BUTTONS = [
+	{ id: 'groupNow', action: 'groupNow' },
+	{ id: 'ungroupAll', action: 'ungroupAll' },
+];
+
 const container = document.getElementById('options');
 OPTIONS.forEach(({ id, label }) => {
 	const labelEl = document.createElement('label');
@@ -30,16 +35,12 @@ OPTIONS.forEach(({ id }) => {
 	});
 });
 
-document
-	.getElementById('groupNow')
-	?.addEventListener('click', () =>
-		chrome.runtime.sendMessage({ action: 'groupNow' }),
-	);
-document
-	.getElementById('ungroupAll')
-	?.addEventListener('click', () =>
-		chrome.runtime.sendMessage({ action: 'ungroupAll' }),
-	);
+BUTTONS.forEach(({ id, action }) => {
+	document
+		.getElementById(id)
+		?.addEventListener('click', () => chrome.runtime.sendMessage({ action }));
+});
+
 document.getElementById('shortcutsLink')?.addEventListener('click', (e) => {
 	e.preventDefault();
 	chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
