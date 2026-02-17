@@ -19,6 +19,25 @@
   font-display: swap;
   src: url("assets/fonts/baloo-2-latin-600-normal.woff2") format("woff2");
 }
+.popup button svg,
+.popup a svg {
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  vertical-align: -0.2em;
+  fill: currentColor;
+}
+.popup .option [data-icon] svg {
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  vertical-align: -0.2em;
+  fill: var(--fg-muted);
+}
+.popup .option:hover [data-icon] svg,
+.popup .option:has(.toggle:checked) [data-icon] svg {
+  fill: var(--fg);
+}
 body.popup-page {
   --fg: #ffffff;
   --fg-muted: #a0a0a0;
@@ -35,8 +54,8 @@ body.popup-page {
   --glass-mid: rgba(255, 255, 255, 0.08);
   --shadow: rgba(0, 0, 0, 0.35);
   margin: 0;
-  height: 100vh;
-  margin-top: 20%;
+  /* height: 100vh; */
+  /* margin-top: 3%; */
   font:
     600 14px "Baloo 2",
     system-ui,
@@ -115,7 +134,10 @@ body.popup-page {
 }
 #groupNow,
 #ungroupAll {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
   position: relative;
   width: 100%;
   margin-top: 10px;
@@ -150,7 +172,10 @@ body.popup-page {
   outline: none;
 }
 #shortcutsLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
   margin-top: 10px;
   padding: 6px 0;
   font:
