@@ -43,7 +43,7 @@ const injectIcon = (slot, key) => {
 };
 
 const container = document.getElementById("options");
-OPTIONS.forEach(([iconFile, label]) => {
+for (const [iconFile, label] of OPTIONS) {
   const id = toId(iconFile);
   const row = document.createElement("label");
   row.className = "option";
@@ -63,44 +63,45 @@ OPTIONS.forEach(([iconFile, label]) => {
     }),
   );
   container.appendChild(row);
-});
+}
 
 const injectAllIcons = () => {
-  document.querySelectorAll("[data-icon]").forEach((slot) => {
+  for (const slot of document.querySelectorAll("[data-icon]"))
     injectIcon(slot, slot.dataset.icon);
-  });
 };
 
 if (ext && chrome.storage.sync) {
   chrome.storage.sync.get(
     OPTIONS.map(([iconFile]) => toId(iconFile)),
     (opts) => {
-      OPTIONS.forEach(([iconFile]) => {
+      for (const [iconFile] of OPTIONS) {
         const id = toId(iconFile);
         const el = document.getElementById(id);
         if (el) el.checked = opts[id] === true;
-      });
+      }
       injectAllIcons();
     },
   );
-}
-injectAllIcons();
+} else injectAllIcons();
 
-OPTIONS.forEach(([iconFile]) => {
+for (const [iconFile] of OPTIONS) {
   const id = toId(iconFile);
   const el = document.getElementById(id);
   el?.addEventListener("change", () => {
-    if (ext) chrome.storage.sync.set({ [id]: el.checked });
-    if (ext) chrome.runtime.sendMessage({ action: "groupNow" });
+    if (!ext) return;
+    chrome.storage.sync.set({ [id]: el.checked });
+    chrome.runtime.sendMessage({ action: "groupNow" });
   });
-});
+}
 
-BUTTONS.forEach(([id, action]) => {
+for (const [id, action] of BUTTONS) {
   const el = document.getElementById(id === "shortcuts" ? "shortcutsLink" : id);
   el?.addEventListener("click", (e) => {
     if (id === "shortcuts") {
       e.preventDefault();
       if (ext) chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
-    } else if (ext) chrome.runtime.sendMessage({ action });
+      return;
+    }
+    if (ext) chrome.runtime.sendMessage({ action });
   });
-});
+}
