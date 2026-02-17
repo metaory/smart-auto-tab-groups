@@ -1,6 +1,22 @@
-# Smart Auto Tab Group
 
-Chrome extension: auto-group tabs by domain or subdomain.
+<div align="center">
+  <img src="logo.svg" alt="Smart Auto Tab Group" width="128" height="128">
+    <h3>Smart Auto Tab Group</h3>
+</div>
+
+---
+
+**Auto-group Chrome tabs by domain or subdomain.**
+
+Groups by domain or subdomain; new tabs auto-join.
+
+- **Domain/Subdomain** (group by domain or subdomain)
+- **Sort A-Z** (sort tabs alphabetically)
+- **Skip pinned** (exclude from groups)
+- **Collapse inactive** (collapse groups without active tab)
+- **No duplicates** (remove duplicate tabs)
+
+---
 
 ## Install
 
