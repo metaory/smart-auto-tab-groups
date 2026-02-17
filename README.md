@@ -1,13 +1,13 @@
 
 <div align="center">
-  <img src="assets/logo.svg" alt="Smart Auto Tab Group" width="128" height="128">
-  <h3>Smart Auto Tab Group</h3>
-  <p>Auto-group Chrome tabs by domain or subdomain</p>
+  <img src="assets/logo.svg" alt="Smart Tab Groups" width="128" height="128">
+  <h3>Smart Tab Groups</h3>
+  <p>Tab grouping by domain or subdomain</p>
 </div>
 
 ---
 
-Groups by domain or subdomain; new tabs auto-join
+Grouping by domain or subdomain; new tabs auto-join (when Automatic is on).
 
 - **Domain/Subdomain** (group by domain or subdomain)
 - **Sort A-Z** (sort tabs alphabetically)
@@ -30,6 +30,7 @@ Chrome → `chrome://extensions` → **Developer mode** → **Load unpacked** �
 
 | Option | Default | Description |
 |--------|---------|-------------|
+| Automatic | on | When on: new/updated tabs are grouped, install/startup runs Group now, inactive groups collapse. When off: use **Group now** (button or shortcut) to group manually. |
 | Group by subdomain | off | Use full subdomain (e.g. `mail.google.com`) as group key instead of base domain. |
 | Sort groups alphabetically | off | Order groups A–Z. |
 | Ignore pinned tabs | off | Do not put pinned tabs into groups. |
@@ -45,6 +46,10 @@ Change at `chrome://extensions` → shortcut icon next to the extension.
 
 ## Behavior
 
+When **Automatic** is on (default):
+
 - On install/startup/enable: runs **Group now** once.
 - New or updated tab (http(s) URL): assigned to the matching domain group or creates a new group.
 - With **Avoid duplicates**: opening/navigating to a URL that already exists in the window focuses that tab and closes the duplicate.
+
+When **Automatic** is off, grouping runs only when you use **Group now** (popup or shortcut).
