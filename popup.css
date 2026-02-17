@@ -1,11 +1,4 @@
 @font-face {
-  font-family: "Bungee";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("assets/fonts/bungee-latin-400-normal.woff2") format("woff2");
-}
-@font-face {
   font-family: "Baloo 2";
   font-style: normal;
   font-weight: 400;
@@ -19,34 +12,15 @@
   font-display: swap;
   src: url("assets/fonts/baloo-2-latin-600-normal.woff2") format("woff2");
 }
-.popup button svg,
-.popup a svg {
-  display: inline-block;
-  width: 1.35em;
-  height: 1.35em;
-  vertical-align: -0.2em;
-  fill: currentColor;
-}
-.popup .option [data-icon] svg {
-  display: inline-block;
-  width: 1.35em;
-  height: 1.35em;
-  vertical-align: -0.2em;
-  fill: var(--fg-muted);
-}
-.popup .option:hover [data-icon] svg,
-.popup .option:has(.toggle:checked) [data-icon] svg {
-  fill: var(--fg);
-}
+
 body.popup-page {
   --fg: #ffffff;
   --fg-muted: #a0a0a0;
   --accent: #00cd66;
-  --accent-dim: #00a852;
   --accent-rgb: 0, 205, 102;
-  --accent-dim-rgb: 0, 168, 82;
   --accent-muted: #009044;
-  --accent-soft: #009044;
+  --secondary: #a855f7;
+  --secondary-rgb: 168, 85, 247;
   --bg: #191919;
   --panel: #212121;
   --surface: #2d2d2d;
@@ -54,15 +28,14 @@ body.popup-page {
   --glass-mid: rgba(255, 255, 255, 0.08);
   --shadow: rgba(0, 0, 0, 0.35);
   margin: 0;
-  /* height: 100vh; */
-  /* margin-top: 3%; */
   font:
     600 14px "Baloo 2",
     system-ui,
     sans-serif;
-  background: var(--bg);
+  background: transparent;
   color: var(--fg);
 }
+
 .popup {
   padding: 16px;
   min-width: 220px;
@@ -75,6 +48,28 @@ body.popup-page {
     0 4px 24px var(--shadow),
     inset 0 1px 0 var(--glass);
 }
+
+.popup [data-icon] svg {
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  vertical-align: -0.1em;
+}
+.popup .option [data-icon] svg {
+  filter: brightness(0) invert(0.63);
+}
+.popup a [data-icon] svg {
+  fill: currentColor;
+}
+#shortcutsLink:hover [data-icon] svg {
+  fill: var(--accent);
+}
+.popup .option:hover [data-icon] svg,
+.popup .option:has(.toggle:checked) [data-icon] svg {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(52%) saturate(800%)
+    hue-rotate(100deg);
+}
+
 .popup .option {
   display: flex;
   align-items: center;
@@ -83,12 +78,11 @@ body.popup-page {
   padding: 8px 12px;
   cursor: pointer;
   border-radius: 10px;
-  border: none;
   background: var(--surface);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
   transition:
     0.2s background,
     0.2s box-shadow;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .popup .option:hover {
   background: #353535;
@@ -132,35 +126,42 @@ body.popup-page {
     rgba(var(--accent-rgb), 0.16) 100%
   );
 }
+
 #groupNow,
 #ungroupAll {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4em;
-  position: relative;
   width: 100%;
   margin-top: 10px;
-  box-sizing: border-box;
-  border: none;
-  background: var(--surface);
-  color: var(--fg);
   padding: 12px 1.25em;
+  border: none;
+  border-radius: 10px;
   font:
     600 14px "Baloo 2",
     system-ui,
     sans-serif;
-  border-radius: 10px;
-  transform: translateY(0);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition:
     0.2s background,
     0.2s box-shadow;
 }
-#groupNow:hover,
+#groupNow {
+  background: rgba(var(--accent-rgb), 0.1);
+  color: #86efac;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+#groupNow:hover {
+  background: rgba(var(--accent-rgb), 0.18);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+#ungroupAll {
+  background: rgba(var(--secondary-rgb), 0.2);
+  color: var(--secondary);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
 #ungroupAll:hover {
-  background: #353535;
+  background: rgba(var(--secondary-rgb), 0.35);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 #groupNow:active,
@@ -171,6 +172,7 @@ body.popup-page {
 #ungroupAll:focus:not(:focus-visible) {
   outline: none;
 }
+
 #shortcutsLink {
   display: flex;
   align-items: center;
