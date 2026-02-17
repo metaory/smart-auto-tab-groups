@@ -10,12 +10,14 @@ const COLORS = [
 	'orange',
 ];
 const OPT_KEYS = [
+	'automatic',
 	'groupBySubdomain',
 	'sortAlphabetically',
 	'ignorePinnedTabs',
 	'collapseInactive',
 	'avoidDuplicates',
 ];
+const OPT_DEFAULTS = { automatic: true };
 
 const colorByIndex = (i) => COLORS[i % COLORS.length];
 
@@ -45,7 +47,10 @@ const getTitle = (key) => key?.split('.')[0] ?? key;
 const getOpts = () =>
 	new Promise((resolve) => {
 		chrome.storage.sync.get(OPT_KEYS, (o) =>
-			resolve({ ...Object.fromEntries(OPT_KEYS.map((k) => [k, false])), ...o }),
+			resolve({
+				...Object.fromEntries(OPT_KEYS.map((k) => [k, OPT_DEFAULTS[k] ?? false])),
+				...o,
+			}),
 		);
 	});
 

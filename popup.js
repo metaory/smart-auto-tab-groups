@@ -1,5 +1,6 @@
 // [iconFile, label] — id = iconFile without .svg
 const OPTIONS = [
+  ["automatic.svg", "Automatic"],
   ["groupBySubdomain.svg", "Subdomain"],
   ["sortAlphabetically.svg", "Sort A–Z"],
   ["ignorePinnedTabs.svg", "Skip pinned"],
@@ -70,18 +71,18 @@ const injectAllIcons = () => {
     injectIcon(slot, slot.dataset.icon);
 };
 
+const OPTION_IDS = OPTIONS.map(([iconFile]) => toId(iconFile));
+const DEFAULTS = { automatic: true };
+
 if (ext && chrome.storage.sync) {
-  chrome.storage.sync.get(
-    OPTIONS.map(([iconFile]) => toId(iconFile)),
-    (opts) => {
-      for (const [iconFile] of OPTIONS) {
-        const id = toId(iconFile);
-        const el = document.getElementById(id);
-        if (el) el.checked = opts[id] === true;
-      }
-      injectAllIcons();
-    },
-  );
+  chrome.storage.sync.get(OPTION_IDS, (opts) => {
+    for (const [iconFile] of OPTIONS) {
+      const id = toId(iconFile);
+      const el = document.getElementById(id);
+      if (el) el.checked = DEFAULTS[id] === true ? opts[id] !== false : opts[id] === true;
+    }
+    injectAllIcons();
+  });
 } else injectAllIcons();
 
 for (const [iconFile] of OPTIONS) {
@@ -90,7 +91,8 @@ for (const [iconFile] of OPTIONS) {
   el?.addEventListener("change", () => {
     if (!ext) return;
     chrome.storage.sync.set({ [id]: el.checked });
-    chrome.runtime.sendMessage({ action: "groupNow" });
+    const automatic = document.getElementById("automatic")?.checked;
+    if (automatic) chrome.runtime.sendMessage({ action: "groupNow" });
   });
 }
 

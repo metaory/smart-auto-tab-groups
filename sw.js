@@ -3,12 +3,15 @@ importScripts('core.js');
 const reply = (sendResponse) => (ok, err) =>
 	sendResponse({ ok, err: err ? String(err) : undefined });
 
-chrome.runtime.onInstalled.addListener(
-	(d) => d.reason === 'install' && groupAllTabs(),
+const runIfAutomatic = (fn) =>
+	getOpts().then((opts) => opts.automatic && fn());
+
+chrome.runtime.onInstalled.addListener((d) =>
+	d.reason === 'install' ? runIfAutomatic(groupAllTabs) : null,
 );
-chrome.runtime.onStartup.addListener(groupAllTabs);
+chrome.runtime.onStartup.addListener(() => runIfAutomatic(groupAllTabs));
 chrome.management.onEnabled.addListener((d) =>
-	d.id === chrome.runtime.id ? groupAllTabs() : null,
+	d.id === chrome.runtime.id ? runIfAutomatic(groupAllTabs) : null,
 );
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
@@ -31,18 +34,24 @@ chrome.commands.onCommand.addListener((cmd) => {
 
 chrome.tabs.onCreated.addListener((tab) => {
 	if (!tab.url?.startsWith('http')) return;
-	focusExistingAndCloseNew(tab.windowId, tab.id, tab.url).then((focused) => {
-		if (!focused) assignTabToGroup(tab.id, tab.url, tab.windowId);
-	});
+	runIfAutomatic(() =>
+		focusExistingAndCloseNew(tab.windowId, tab.id, tab.url).then((focused) => {
+			if (!focused) assignTabToGroup(tab.id, tab.url, tab.windowId);
+		}),
+	);
 });
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 	if (!changeInfo.url) return;
-	focusExistingAndCloseNew(tab.windowId, tabId, changeInfo.url).then(
-		(focused) => {
-			if (!focused) assignTabToGroup(tabId, changeInfo.url, tab.windowId);
-		},
+	runIfAutomatic(() =>
+		focusExistingAndCloseNew(tab.windowId, tabId, changeInfo.url).then(
+			(focused) => {
+				if (!focused) assignTabToGroup(tabId, changeInfo.url, tab.windowId);
+			},
+		),
 	);
 });
 chrome.tabs.onActivated.addListener((info) =>
-	collapseInactiveInWindow(info.windowId, info.tabId),
+	runIfAutomatic(() =>
+		collapseInactiveInWindow(info.windowId, info.tabId),
+	),
 );
