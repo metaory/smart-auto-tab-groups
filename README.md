@@ -3,6 +3,7 @@
   <img src="assets/logo.svg" alt="Smart Tab Groups" width="128" height="128">
   <h3>Smart Tab Groups</h3>
   <p>Tab grouping by domain or subdomain</p>
+  <img src="assets/banner.png" alt="Smart Tab Groups" width="80%">
 </div>
 
 ---
