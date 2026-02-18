@@ -21,6 +21,10 @@ Grouping by domain or subdomain; new tabs auto-join (when Automatic is on).
 
 Chrome → `chrome://extensions` → **Developer mode** → **Load unpacked** → select this directory.
 
+## Dev / Debug UI
+
+Run `npx vite` to serve the UI for development and debugging (hot reload).
+
 ## Popup
 
 - **Group now** — (re)group all tabs in the current window
@@ -53,3 +57,7 @@ When **Automatic** is on (default):
 - With **Avoid duplicates**: opening/navigating to a URL that already exists in the window focuses that tab and closes the duplicate.
 
 When **Automatic** is off, grouping runs only when you use **Group now** (popup or shortcut).
+
+## License
+
+[MIT](LICENSE)
