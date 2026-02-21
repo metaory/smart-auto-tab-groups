@@ -4,7 +4,21 @@
   <h3>Smart Tab Groups</h3>
   <p>Tab grouping by domain or subdomain</p>
   <img src="assets/banner.png" alt="Smart Tab Groups" width="80%">
+  <hr>
+  <img src="assets/screenshot-1.png" alt="screenshot 1" width="40%">
+  <img src="assets/screenshot-2.png" alt="screenshot 2" width="40%">
 </div>
+
+---
+
+## Supported browsers
+
+| Browser | Version | Notes |
+|---------|---------|------|
+| Chrome, Edge, Brave, Opera (Chromium-based) | current | Full support. |
+| Firefox | 138+ | Desktop only; tab groups API required. |
+| Safari | — | Not supported. |
+| Firefox &lt; 138, Firefox Android | — | Not supported. |
 
 ---
 
@@ -20,7 +34,9 @@ Grouping by domain or subdomain; new tabs auto-join (when Automatic is on).
 
 ## Install
 
-Chrome → `chrome://extensions` → **Developer mode** → **Load unpacked** → select this directory.
+- **Chrome / Chromium-based**: `chrome://extensions` → **Developer mode** → **Load unpacked** → select this directory.
+- **Firefox** (dev, unpacked): Open `about:debugging` → **This Firefox** → **Load Temporary Add-on**. In the file dialog, set the type to **All files** (the default “addons” filter expects an XPI), then pick **`manifest.json`** from this directory. The add-on loads until restart; use **Reload** on that page to apply changes.
+- **Firefox** (from file): Pack an XPI: from this directory run `zip -r ../smart-tab-groups.xpi . -x "*.git*" -x ".dev/*" -x ".vite/*" -x "node_modules/*" -x "*.xpi"`, then in Firefox open `about:addons` → gear → **Install Add-on From File** → select the `.xpi`. For a signed/public install, use [AMO](https://extensionworkshop.com/documentation/publish/submitting-an-add-on/).
 
 ## Dev / Debug UI
 
@@ -47,7 +63,7 @@ Run `npx vite` to serve the UI for development and debugging (hot reload).
 - **Group now**: `Ctrl+Shift+G` (Windows/Linux) / `Cmd+Shift+G` (Mac)
 - **Ungroup all**: `Ctrl+Shift+U` (Windows/Linux) / `Cmd+Shift+U` (Mac)
 
-Change at `chrome://extensions` → shortcut icon next to the extension.
+Change shortcuts: **Chrome** → `chrome://extensions` → shortcut icon next to the extension. **Firefox** → `about:addons` → cog (Tools for all add-ons) → **Manage Extension Shortcuts**.
 
 ## Behavior
 
